@@ -50,6 +50,7 @@ class Cube:
 
         move = move.strip().lower()
         match move:
+            # TODO Implement movement.
             case _:
                 raise ValueError(f"The move {move} has not been implemented.")
 
@@ -61,13 +62,14 @@ class Cube:
             n (int | str): A value representing the number of times the cube
             will be shuffled.
         """
-        n: int = int(n)
 
+        n: int = int(n)
+        # Implement random movement (and don't forget to set the seed).
         pass
 
     def is_default_goal(self) -> bool:
         """
         A function to check if the current state of the cube is the goal state.
         """
-        
+
         return self.state == self.DEFAULT_GOAL
