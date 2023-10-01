@@ -44,6 +44,17 @@ class Cube:
 
         self.state = self.DEFAULT_STATE
 
+    def rotate_sequence(self, seq: list[str]):
+        """
+        A function to perform a sequence of moves.
+        
+        Parameters:
+            seq (list[str]): A sequence of string commands.
+        """
+        
+        for s in seq:
+            self.move(s)
+
     def move(self, move: str) -> None:
         """
         A function to move the cube in a specified direction.
@@ -60,19 +71,42 @@ class Cube:
             case "f":
                 # Clockwise front side.
                 # Rotate front face.
-                self.state[2][2], self.state[2][3], self.state[3][2], self.state[3][3] = self.state[2][3], self.state[3][3], self.state[2][2], self.state[3][2]
+                self.state[2][2], self.state[2][3], self.state[3][3], self.state[3][2] = self.state[2][3], self.state[3][3], self.state[3][2], self.state[2][2]
                 # Rotate sides.
-                self.state[2][1], self.state[1][0], self.state[1][1], self.state[]
+                self.state[2][1], self.state[1][0], self.state[1][1], self.state[2][4], self.state[3][4], self.state[4][1], self.state[4][0], self.state[3][1]\
+                    = self.state[1][1], self.state[2][4], self.state[3][4], self.state[4][1], self.state[4][0], self.state[3][1], self.state[2][1], self.state[1][0]
             case "u":
                 # Clockwise upper side.
+                # Rotate upper face.
+                self.state[0][0], self.state[0][1], self.state[1][1], self.state[1][0] = self.state[0][1], self.state[1][1], self.state[1][0], self.state[0][0]
+                # Rotate sides.
+                self.state[2] = self.state[2][2:] + self.state[2][:2]
             case "r":
                 # Clockwise right side.
+                # Rotate right face.
+                self.state[2][4], self.state[2][5], self.state[3][5], self.state[3][4] = self.state[2][5], self.state[3][5], self.state[3][4], self.state[2][4]
+                # Rotate sides.
+                self.state[2][3], self.state[1][1], self.state[0][1], self.state[2][6], self.state[3][6], self.state[5][3], self.state[4][3], self.state[3][3]\
+                    = self.state[0][1], self.state[2][6], self.state[3][6], self.state[5][3], self.state[4][3], self.state[3][3], self.state[2][3], self.state[1][1]
             case "f'":
                 # Counterclockwise front.
+                self.state[2][2], self.state[2][3], self.state[3][3], self.state[3][2] = self.state[3][2], self.state[2][2], self.state[2][3], self.state[3][3],
+                # Rotate sides.
+                self.state[2][1], self.state[1][0], self.state[1][1], self.state[2][4], self.state[3][4], self.state[4][1], self.state[4][0], self.state[3][1]\
+                    = self.state[4][0], self.state[3][1], self.state[2][1], self.state[1][0], self.state[1][1], self.state[2][4], self.state[3][4], self.state[4][1]
             case "u'":
                 # Counterclockwise upper.
+                # Rotate upper face.
+                self.state[0][0], self.state[0][1], self.state[1][1], self.state[1][0] = self.state[1][0], self.state[0][0], self.state[0][1], self.state[1][1]
+                # Rotate sides.
+                self.state[2] = self.state[2][-2:] + self.state[2][:-2]
             case "r'":
                 # Counterclockwise right.
+                # Rotate right face.
+                self.state[2][4], self.state[2][5], self.state[3][5], self.state[3][4] = self.state[3][4], self.state[2][4], self.state[2][5], self.state[3][5]
+                # Rotate sides.
+                self.state[2][3], self.state[1][1], self.state[0][1], self.state[2][6], self.state[3][6], self.state[5][3], self.state[4][3], self.state[3][3]\
+                    = self.state[4][3], self.state[3][3], self.state[2][3], self.state[1][1], self.state[0][1], self.state[2][6], self.state[3][6], self.state[5][3]
             case _:
                 raise ValueError(f"The move {move} has not been implemented.")
 
