@@ -1,3 +1,5 @@
+import random
+
 class Cube:
     """
     A class to represent a 2x2 Rubik's cube.
@@ -17,7 +19,7 @@ class Cube:
     """
     A set of unique valid moves.
     """
-    MOVE_SET: set[str] = {"f", "u", "r", "f'", "u'", "r'"}
+    MOVE_SET: list[str] = ["f", "u", "r", "f'", "u'", "r'"]
 
     def __init__(self) -> None:
         """
@@ -49,7 +51,7 @@ class Cube:
         A function to print the current state of the puzzle.
         """
 
-        f_str: str = f"      {self.state[0]}\n      {self.state[1]}\n{self.state[2]}\n{self.state[3]}\n      {self.state[4]}\n      {self.state[5]}"
+        f_str: str = f"      {self.state[0]}\n      {self.state[1]}\n{self.state[2]}\n{self.state[3]}\n      {self.state[4]}\n      {self.state[5]}\n"
         print(f_str)
 
     def rotate_sequence(self, seq: list[str]):
@@ -127,9 +129,10 @@ class Cube:
             will be shuffled.
         """
 
-        n: int = int(n)
-        # Implement random movement (and don't forget to set the seed).
-        pass
+        # Setting the seed (for consistency in testing).
+        random.seed("axw582")
+        for _ in range(int(n)):
+            self.move(random.choice(self.MOVE_SET))
 
     def is_default_goal(self) -> bool:
         """
