@@ -40,6 +40,19 @@ class Node:
         self.path_cost: int = path_cost
         self.state_str: str = "".join([str(n) for n in state])
 
+    def __hash__(self) -> int:
+        return hash(self.state_str)
+    
+    def __eq__(self, other) -> bool:
+        if isinstance(other, Node):
+            return self.state_str == other.state_str
+        return False
+    
+    def __lt__(self, other):
+        if isinstance(other, Node):
+            return self.state_str < other.state_str
+        raise TypeError("Cannot compare Node with non-Node object")
+
     def misplaced_tiles(self) -> int:
         """
         A function to calculated the number of misplaced faces on the cube.
