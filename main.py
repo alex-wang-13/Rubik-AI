@@ -15,7 +15,7 @@ def action(command: str, cube: Cube) -> None:
         cube (puzzle_parts.Cube): The cube on which to perform an action.
     """
 
-    command: list[str] = command.split(command)
+    command: list[str] = command.lower().split()
     
     match command[0]:
         case "shuffle":
@@ -25,6 +25,8 @@ def action(command: str, cube: Cube) -> None:
             cube.rotate_sequence(command[1:])
         case "reset":
             cube.reset()
+        case "printstate":
+            cube.print_state()
         case _:
             # State that a given command is not recognized.
             print(f"The function {command} is not recognized/implemented.")
@@ -40,4 +42,4 @@ if __name__ == "__main__":
     with open(sys.argv[1]) as file:
         # Run each line in the command file.
         for line in file:
-            action(line)
+            action(command=line, cube=cube)
