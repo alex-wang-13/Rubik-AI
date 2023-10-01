@@ -1,4 +1,9 @@
+import heapq
+import math
 import random
+
+from node import Node
+from typing import Callable
 
 class Cube:
     """
@@ -38,6 +43,7 @@ class Cube:
         """
 
         self.state: list[int] = self.DEFAULT_STATE
+        self.max_nodes: int = math.inf
 
     def reset(self) -> None:
         """
@@ -140,3 +146,88 @@ class Cube:
         """
 
         return self.state == self.DEFAULT_GOAL
+    
+    def expand(self, node: Node) -> list[Node]:
+        """
+        A function to expand a particular Node.
+        
+        Returns:
+            list[Node]: A list of child Nodes.
+        """
+
+        children: list[Node] = []
+        curr_state: list[list[int]] = self.state.copy()
+        for move in self.MOVE_SET:
+            self.move(move)
+            children.append(Node(self.state, node, move, node.path_cost+1))
+            self.state = curr_state.copy()
+        return children
+    
+    def backtrack(self, node: Node) -> None:
+        # Start with initial empty path.
+        path: list[str, str] = []
+
+        while node:
+            # Add the node + subsequent action.
+            path.append((node.state_str, node.action))
+            # Update the current Node.
+            node = node.parent
+
+        print( len(path), "".join(path) )
+
+    def solve_astar(self) -> None:
+        """
+        A function to search for the goal state with A* search.
+        """
+
+        # Define the initial Node.
+        node: Node = Node(self.state.copy())
+        # Declare the frontier.
+        frontier: list[Node] = []
+        heapq.heappush(frontier, (0, node))
+        # Track closed states.
+        closed_set: set[Node] = set()
+
+        # Store the Nodes' cheapest cost.
+        g_score: dict[Node, int] = dict()
+        g_score[node] = 0
+        node.path_cost = 0
+        # Store the Nodes' evaluation.
+        f_score: dict[Node, int] = dict()
+        f_score[node] = node.misplaced_tiles() + 0
+
+        # Track the number of Nodes considered.
+        n_count: int = 0
+        while len(frontier) > 0:
+            # Pop the highest priority Node.
+            node: Node = heapq.heappop(frontier)[1]
+            # Check if the Node is already closed.
+            if node in closed_set:
+                continue
+            else:
+                closed_set.add(node)
+            # Check + update the number of nodes considered.
+            if n_count < self.max_nodes:
+                n_count += 1
+            else:
+                print(f"Exceeded limit for nodes considered: {self.max_nodes}.")
+                break
+
+            # Check if the goal is reached.
+            if self.is_default_goal():
+                return self.backtrack(node)
+            
+            # For each child node.
+            for child in self.expand(node):
+                # Add path cost up to child node to the tentative score.
+                tentative_score: int = g_score.get(node, math.inf) + 1
+                # Check if there is an improvement in path cost.
+                if child not in g_score or tentative_score < g_score[child]:
+                    # Update tables.
+                    child.parent = node
+                    g_score[child] = tentative_score
+                    f_score[child] = tentative_score + child.misplaced_tiles()
+                    if child not in frontier:
+                        heapq.heappush(frontier, (f_score[child], child))
+
+        print( "FAILURE" )

@@ -27,6 +27,10 @@ def action(command: str, cube: Cube) -> None:
             cube.reset()
         case "printstate":
             cube.print_state()
+        case "solve":
+            cube.solve_astar()
+        case "maxnodes":
+            cube.max_nodes = int(command[1])
         case _:
             # State that a given command is not recognized.
             print(f"The function {command} is not recognized/implemented.")
