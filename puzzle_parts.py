@@ -94,8 +94,8 @@ class Cube:
                 # Rotate right face.
                 self.state[2][4], self.state[2][5], self.state[3][5], self.state[3][4] = self.state[2][5], self.state[3][5], self.state[3][4], self.state[2][4]
                 # Rotate sides.
-                self.state[2][3], self.state[1][1], self.state[0][1], self.state[2][6], self.state[3][6], self.state[5][3], self.state[4][3], self.state[3][3]\
-                    = self.state[0][1], self.state[2][6], self.state[3][6], self.state[5][3], self.state[4][3], self.state[3][3], self.state[2][3], self.state[1][1]
+                self.state[2][3], self.state[1][1], self.state[0][1], self.state[2][6], self.state[3][6], self.state[5][1], self.state[4][1], self.state[3][3]\
+                    = self.state[0][1], self.state[2][6], self.state[3][6], self.state[5][1], self.state[4][1], self.state[3][3], self.state[2][3], self.state[1][1]
             case "f'":
                 # Counterclockwise front.
                 self.state[2][2], self.state[2][3], self.state[3][3], self.state[3][2] = self.state[3][2], self.state[2][2], self.state[2][3], self.state[3][3],
@@ -113,8 +113,8 @@ class Cube:
                 # Rotate right face.
                 self.state[2][4], self.state[2][5], self.state[3][5], self.state[3][4] = self.state[3][4], self.state[2][4], self.state[2][5], self.state[3][5]
                 # Rotate sides.
-                self.state[2][3], self.state[1][1], self.state[0][1], self.state[2][6], self.state[3][6], self.state[5][3], self.state[4][3], self.state[3][3]\
-                    = self.state[4][3], self.state[3][3], self.state[2][3], self.state[1][1], self.state[0][1], self.state[2][6], self.state[3][6], self.state[5][3]
+                self.state[2][3], self.state[1][1], self.state[0][1], self.state[2][6], self.state[3][6], self.state[5][1], self.state[4][1], self.state[3][3]\
+                    = self.state[4][1], self.state[3][3], self.state[2][3], self.state[1][1], self.state[0][1], self.state[2][6], self.state[3][6], self.state[5][1]
             case _:
                 raise ValueError(f"The move {move} has not been implemented.")
 
