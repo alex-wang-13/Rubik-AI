@@ -44,6 +44,14 @@ class Cube:
 
         self.state = self.DEFAULT_STATE
 
+    def print_state(self) -> None:
+        """
+        A function to print the current state of the puzzle.
+        """
+
+        f_str: str = f"      {self.state[0]}\n      {self.state[1]}\n{self.state[2]}\n{self.state[3]}\n      {self.state[4]}\n      {self.state[5]}"
+        print(f_str)
+
     def rotate_sequence(self, seq: list[str]):
         """
         A function to perform a sequence of moves.
