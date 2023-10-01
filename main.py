@@ -23,6 +23,8 @@ def action(command: str, cube: Cube) -> None:
             cube.shuffle(command[1])
         case "rotate":
             cube.rotate_sequence(command[1:])
+        case "reset":
+            cube.reset()
         case _:
             # State that a given command is not recognized.
             print(f"The function {command} is not recognized/implemented.")
