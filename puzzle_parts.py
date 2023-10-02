@@ -3,7 +3,7 @@ import math
 import random
 
 from node import Node
-from typing import Callable
+from copy import deepcopy
 
 class Cube:
     """
@@ -19,7 +19,7 @@ class Cube:
               [5, 5]
     ]
 
-    DEFAULT_GOAL: list[list[int]] = DEFAULT_STATE.copy()
+    DEFAULT_GOAL: list[list[int]] = deepcopy(DEFAULT_STATE)
 
     """
     A set of unique valid moves.
@@ -42,7 +42,7 @@ class Cube:
         are the front of the cube. 
         """
 
-        self.state: list[int] = self.DEFAULT_STATE
+        self.state: list[int] = deepcopy(self.DEFAULT_STATE)
         self.max_nodes: int = math.inf
 
     def reset(self) -> None:
